@@ -354,12 +354,12 @@ const Dashboard = () => {
     },
     {
       title: "Projected Profit",
-      value: Currency + JO2.toFixed(2).toLocaleString(),
+      value: Currency + JO2.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }),
       color: "#67C839",
     },
     {
       title: "Take Profit",
-      value: Currency + (KO2 ? parseFloat(KO2).toFixed(2).toLocaleString() : 0),
+      value: Currency + (KO2 ? parseFloat(KO2).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : '0.00'),
       color: "#67C839",
       marginBottom: "0px",
     },
@@ -378,7 +378,7 @@ const Dashboard = () => {
     },
     {
       title: "Investment Return",
-      value: HO1.toFixed(2) + "%",
+      value: HO1.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + "%",
       color: "#6FD738",
       marginBottom: "0px",
     },
@@ -386,9 +386,11 @@ const Dashboard = () => {
       title: "Stop Loss Range",
       value:
         Currency +
-        Math.abs(parseFloat(EO1 - EO1 - IO1 * 0.01 * EO1)
-        .toFixed(3)
-        .toLocaleString()),
+        (
+          parseFloat(
+            (EO1 && IO1 ? EO1 - EO1 - IO1 * 0.01 * EO1 : 0) // Ensure valid numbers
+          ).toLocaleString(undefined, { minimumFractionDigits: 3, maximumFractionDigits: 3 })
+        ),
       color: "#9191A6",
     },
     {
@@ -397,8 +399,7 @@ const Dashboard = () => {
         Currency +
         (KO2
           ? parseFloat(KO2 - EO1)
-              .toFixed(3)
-              .toLocaleString()
+          .toLocaleString(undefined, { minimumFractionDigits: 3, maximumFractionDigits: 3 })
           : 0),
       color: "#9191A6",
     },
@@ -691,16 +692,16 @@ const Dashboard = () => {
               </h4>
               <div className="row">
                 <div className="col-6">
-                  <h6 style={{ color: "#7071A4" }}>
-                    P/L Per Share{" "}
-                    <span style={{ color: "rgb(103, 200, 57)" }}>
-                      {Currency + " " + LO5.toLocaleString()}
-                    </span>
-                  </h6>
+                <h6 style={{ color: "#7071A4" }}>
+                  P/L Per Share{" "}
+                  <span style={{ color: "rgb(103, 200, 57)" }}>
+                  {Currency + " " + (LO5 ? parseFloat(LO5).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : '0.00')}
+                  </span>
+                </h6>
 
                   <h6 style={{ color: "#7071A4" }}>
                     Rol{" "}
-                    <span style={{ color: "#CBCBE2" }}>{HO1.toFixed(2)} %</span>
+                    <span style={{ color: "#CBCBE2" }}>{HO1.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })} %</span>
                   </h6>
                 </div>
                 <div className="col-6">
@@ -888,7 +889,7 @@ const Dashboard = () => {
                   <div style={{ width: "100%", textAlign: "center" }}>
                     <FormTag4
                       value={
-                        Currency + (KO2 ? parseFloat(KO2).toFixed(2).toLocaleString() : 0)
+                        Currency + (KO2 ? parseFloat(KO2).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : 0.00)
                       }
                       color="green"
                       title="Sell Price"
@@ -904,6 +905,7 @@ const Dashboard = () => {
                       marginBottom: "-38px",
                     }}
                   >
+                    
                     <FormTag4
                       value={
                         Currency +
