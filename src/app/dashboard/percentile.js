@@ -493,18 +493,25 @@ const Dashboard = () => {
       </div>
       <div className="row">
         {/* 1 */}
-        <div className="col-12 col-lg-6 col-xl-3">
-          <div className="flex-fill" style={{ borderRadius: "8px" }}>
+        <div className="col-12 col-lg-6 col-xl-3"
+        style={{ marginTop: "-18px" }}
+        >
+          
+          <div className="flex-fill" style={{ borderRadius: "8px"}}>
+          
             <h4
               className="text-center"
               style={{
                 color: "#CBCBE2",
                 backgroundColor: "#27283A",
-                padding: "10px",
-                borderRadius: "8px",
-                marginBottom: "-10px",
+                marginTop: "20px",
+                padding: "20px",
+                borderRadius: "20px",
+                marginBottom: "-10px"
+                ,
               }}
             >
+              
               Trade Metrics
             </h4>
             {renderFieldsInCards()}
