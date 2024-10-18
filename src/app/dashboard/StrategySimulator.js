@@ -328,15 +328,20 @@ toFixed(2)
       marginBottom: "0px",
     },
     {
-       title: "Projected Loss",
-       value:
-         Currency +
-         (HO2 &&
-          FO2 &&
-           EO1 &&
-           parseFloat(HO2 - ( EO3 /EO1 * HO2 ) ).toFixed(2).toLocaleString()),
-       color: "#FF0000",
-     },
+      title: "Projected Loss",
+      value:
+        Currency +
+        (HO2 &&
+         FO2 &&
+         EO1 &&
+         parseFloat(HO2 - (EO3 / EO1 * HO2)) // Perform the calculation
+           .toFixed(2)                       // Convert to a string with 2 decimal places
+           .toLocaleString(undefined, {      // Apply locale formatting
+             minimumFractionDigits: 2,
+             maximumFractionDigits: 2
+           })),
+      color: "#FF0000",
+    },
 
     
     
@@ -520,14 +525,17 @@ toFixed(2)
       </div>
       <div className="row">
         {/* 1 */}
-        <div className="col-12 col-lg-6 col-xl-3 d-flex">
+        <div className="col-12 col-lg-6 col-xl-3 d-flex"
+        style={{ marginTop: "-17px" }}
+        >
           <div className="flex-fill" style={{ borderRadius: "8px" }}>
             <h4
               className="text-center"
               style={{
                 color: "#CBCBE2",
                 backgroundColor: "#27283A",
-                padding: "10px",
+                marginTop: "20px",
+                padding: "20px",
                 borderRadius: "8px",
                 marginBottom: "-10px",
               }}
