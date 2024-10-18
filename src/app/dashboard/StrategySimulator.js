@@ -404,7 +404,7 @@ toFixed(2)
     },
     {
       title: "Trade Range",
-      value: Currency + parseFloat((GO1 - EO3).toFixed(3)).toLocaleString(),
+      value: Currency + (GO1 - EO3).toFixed(3).toLocaleString(),
       color: "#9191A6",
     },
   ];
