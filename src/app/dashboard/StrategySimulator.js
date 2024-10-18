@@ -847,24 +847,21 @@ toFixed(2)
   />
 </div>
 
-                <div className="col-12 col-sm-6">
-                <FormTag
-                  disabled
-                  currency={CurrencySelect}
-                  onCurrencyChange={CurrencyChange}
-                  max={100000}
-                  value={GO1 ? GO1.toLocaleString() : ''}  // Format number with commas
-                  color="input_green"
-                  val="$"
-                  title="Sell Price"
-                  onChange={(e) => {
-                    const rawValue = e.target.value.replace(/,/g, ''); // Remove commas for raw value
-                    handleGGGO1(parseFloat(rawValue) || 0); // Send raw value to handler
-                  }}
-                  onKeyPress={handleKeyPress}
-                  name="CIO10"
-                />
-              </div>
+<div className="col-12 col-sm-6">
+                  <FormTag
+                    disabled
+                    currency={CurrencySelect}
+                    onCurrencyChange={CurrencyChange}
+                    max={100000}
+                    value={GGGO1}
+                    color="input_green"
+                    val="$"
+                    title="Sell Price"
+                    onChange={handleGGGO1}
+                    onKeyPress={handleKeyPress}
+                    name="CIO10"
+                  />
+                  </div>
               </div>
               <div className="row pt-3 text-center">
                 <div className="col-12 col-sm-6">
