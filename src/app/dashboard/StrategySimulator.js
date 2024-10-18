@@ -829,23 +829,20 @@ toFixed(2)
                   />
                 </div>
                 <div className="col-12 col-sm-6">
-  <FormTag
-    disabled
-    currency={CurrencySelect}
-    onCurrencyChange={CurrencyChange}
-    max={100000}
-    value={EO3 ? EO3.toLocaleString() : ''}  // Format the value with commas
-    color="input_red"
-    val="$"
-    title="Stop Price"
-    onChange={(e) => {
-      const rawValue = e.target.value.replace(/,/g, ''); // Remove commas from the value
-      handleEEEO3(parseFloat(rawValue) || 0);  // Send the raw value to your handler
-    }}
-    onKeyPress={handleKeyPress}
-    name="CIO10"
-  />
-</div>
+                  <FormTag
+                    disabled
+                    currency={CurrencySelect}
+                    onCurrencyChange={CurrencyChange}
+                    max={100000}
+                    value={EEEO3}
+                    color="input_red"
+                    val="$"
+                    title="Stop Price"
+                    onChange={handleEEEO3}
+                    onKeyPress={handleKeyPress}
+                    name="CIO10"
+                  />
+                </div>
 
 <div className="col-12 col-sm-6">
                   <FormTag
