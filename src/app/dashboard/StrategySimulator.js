@@ -404,7 +404,7 @@ toFixed(2)
     },
     {
       title: "Trade Range",
-      value: Currency + (GO1 - EO3).toFixed(3).toLocaleString(),
+      value: Currency + parseFloat((GO1 - EO3).toFixed(3).toLocaleString()),
       color: "#9191A6",
     },
   ];
@@ -829,35 +829,42 @@ toFixed(2)
                   />
                 </div>
                 <div className="col-12 col-sm-6">
-                  <FormTag
-                    disabled
-                    currency={CurrencySelect}
-                    onCurrencyChange={CurrencyChange}
-                    max={100000}
-                    value={EEEO3}
-                    color="input_red"
-                    val="$"
-                    title="Stop Price"
-                    onChange={handleEEEO3}
-                    onKeyPress={handleKeyPress}
-                    name="CIO10"
-                  />
-                </div>
+  <FormTag
+    disabled
+    currency={CurrencySelect}
+    onCurrencyChange={CurrencyChange}
+    max={100000}
+    value={EO3 ? EO3.toLocaleString() : ''}  // Format the value with commas
+    color="input_red"
+    val="$"
+    title="Stop Price"
+    onChange={(e) => {
+      const rawValue = e.target.value.replace(/,/g, ''); // Remove commas from the value
+      handleEEEO3(parseFloat(rawValue) || 0);  // Send the raw value to your handler
+    }}
+    onKeyPress={handleKeyPress}
+    name="CIO10"
+  />
+</div>
+
                 <div className="col-12 col-sm-6">
-                  <FormTag
-                    disabled
-                    currency={CurrencySelect}
-                    onCurrencyChange={CurrencyChange}
-                    max={100000}
-                    value={GGGO1}
-                    color="input_green"
-                    val="$"
-                    title="Sell Price"
-                    onChange={handleGGGO1}
-                    onKeyPress={handleKeyPress}
-                    name="CIO10"
-                  />
-                </div>
+                <FormTag
+                  disabled
+                  currency={CurrencySelect}
+                  onCurrencyChange={CurrencyChange}
+                  max={100000}
+                  value={GO1 ? GO1.toLocaleString() : ''}  // Format number with commas
+                  color="input_green"
+                  val="$"
+                  title="Sell Price"
+                  onChange={(e) => {
+                    const rawValue = e.target.value.replace(/,/g, ''); // Remove commas for raw value
+                    handleGGGO1(parseFloat(rawValue) || 0); // Send raw value to handler
+                  }}
+                  onKeyPress={handleKeyPress}
+                  name="CIO10"
+                />
+              </div>
               </div>
               <div className="row pt-3 text-center">
                 <div className="col-12 col-sm-6">
@@ -925,13 +932,13 @@ toFixed(2)
                 >
                   <div style={{ width: "100%", textAlign: "center" }}>
                     <FormTag4
-                      value={Currency + " " + (GO1 || 0)}
+                      value={Currency + " " + (GO1.toLocaleString() || 0)}
                       color="green"
                       title="Sell Price"
                     />
                   </div>
                   <div style={{ width: "100%", textAlign: "center" }}>
-                    <FormTag4 value={EO2 || 0} color="blue" title=" Quantity" />
+                    <FormTag4 value={EO2.toLocaleString() || 0} color="blue" title=" Quantity" />
                   </div>
                   <div
                     style={{
@@ -941,7 +948,7 @@ toFixed(2)
                     }}
                   >
                     <FormTag4
-                      value={Currency + " " + (EO3 || 0)}
+                      value={Currency + " " + (EO3.toLocaleString() || 0)}
                       color="red"
                       title=" Stop Price"
                     />
