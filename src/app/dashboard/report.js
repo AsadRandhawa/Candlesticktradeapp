@@ -111,11 +111,11 @@ const Introduction = () => {
               >
                 Buy a position size of{" "}
                 <span style={{ color: "#FFCC00", fontWeight: "bold" }}>
-                  {EEEO2 || 0}
+                  {EEEO2.toLocaleString() || 0}
                 </span>{" "}
                  at{" "}
                 <span style={{ color: "#FFCC00", fontWeight: "bold" }}>
-                  {" " + Currency + (EEEO1 || 0) + " "}
+                  {" " + Currency + (EEEO1.toLocaleString()|| 0) + " "}
                 </span>
               </p>
               <p
@@ -127,11 +127,11 @@ const Introduction = () => {
               >
                 Close trade at{" "}
                 <span style={{ color: "rgb(255, 62, 29)", fontWeight: "bold" }}>
-                  {" " + Currency + (EEEO3 || 0) + " "}
+                  {" " + Currency + (EEEO3.toLocaleString() || 0) + " "}
                 </span>
                 For a
                 <span style={{ color: "rgb(255, 62, 29)", fontWeight: "bold" }}>
-                  {" " + Currency + (FFF01.toFixed(2) || 0) + " "}
+                  {" " + Currency + (Number(FFF01).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") || 0) + " "}
                 </span>
                 loss
               </p>
@@ -144,11 +144,11 @@ const Introduction = () => {
               >
                 Take profit at{" "}
                 <span style={{ color: "#00FF00", fontWeight: "bold" }}>
-                  {" " + Currency + (GGGO1 || 0) + " "}
+                  {" " + Currency + (GGGO1.toLocaleString() || 0) + " "}
                 </span>{" "}
                 for a{" "}
                 <span style={{ color: "#00FF00", fontWeight: "bold" }}>
-                  {" " + Currency + (GGGO2.toFixed(2) || 0) + " "}
+                  {" " + Currency + (GGGO2.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") || 0) + " "}
                 </span>{" "}
                 gain.
               </p>
@@ -245,23 +245,23 @@ const Introduction = () => {
                         }}
                       >
                         <td style={cellStyle}>{index + 1}</td>
-                        <td style={cellStyle}>{Currency + val.C13}</td>
-                        <td style={cellStyle}>{val.C14}</td>
-                        <td style={cellStyle}>{Currency + (val.C15 || 0)}</td>
+                        <td style={cellStyle}>{Currency + val.C13.toLocaleString()}</td>
+                        <td style={cellStyle}>{val.C14.toLocaleString()}</td>
+                        <td style={cellStyle}>{Currency + (val.C15.toLocaleString() || 0)}</td>
                         <td style={cellStyle}>
-                          {Currency + val.C16.toFixed(1)}
+                          {Currency + val.C16.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
                         </td>
-                        <td style={cellStyle}>{Currency + (val.C19 || 0)}</td>
+                        <td style={cellStyle}>{Currency + (val.C19.toLocaleString() || 0)}</td>
                         <td style={cellStyle}>
-                          {Currency + val.C20.toFixed(2)}
+                          {Currency + val.C20.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
                         </td>
                         <td style={cellStyle}>
-                          {Currency + val.C22.toFixed(2)}
+                          {Currency + val.C22.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
                         </td>
-                        <td style={cellStyle}>{val.C23.toFixed(2)}</td>
-                        <td style={cellStyle}>{val.C21.toFixed(2) + " %"}</td>
+                        <td style={cellStyle}>{val.C23.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
+                        <td style={cellStyle}>{val.C21.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " %"}</td>
                         <td style={cellStyle}>
-                          {Currency + val.C32.toFixed(2)}
+                          {Currency + val.C32.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
                         </td>
                       </tr>
                     ))}
