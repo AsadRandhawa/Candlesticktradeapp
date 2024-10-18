@@ -334,12 +334,14 @@ toFixed(2)
         (HO2 &&
          FO2 &&
          EO1 &&
-         parseFloat(HO2 - (EO3 / EO1 * HO2)) // Perform the calculation
-           .toFixed(2)                       // Convert to a string with 2 decimal places
-           .toLocaleString(undefined, {      // Apply locale formatting
-             minimumFractionDigits: 2,
-             maximumFractionDigits: 2
-           })),
+         (parseFloat(HO2 - (EO3 / EO1 * HO2)) // Perform the calculation
+           .toFixed(2)                        // Convert to a string with 2 decimal places
+           ) &&                               // Ensures calculation is valid
+           parseFloat(parseFloat(HO2 - (EO3 / EO1 * HO2)).toFixed(2)) // Convert back to number
+             .toLocaleString(undefined, {     // Apply locale formatting
+               minimumFractionDigits: 2,
+               maximumFractionDigits: 2
+             })),
       color: "#FF0000",
     },
 
@@ -392,7 +394,7 @@ toFixed(2)
       title: "Stop Loss Range",
       value:
         Currency +
-        Math.abs(parseFloat((EO1 - EO3).toFixed(3)).toLocaleString()),
+        (parseFloat((EO1 - EO3).toFixed(3)).toLocaleString()),
       color: "#9191A6",
     },
     {
