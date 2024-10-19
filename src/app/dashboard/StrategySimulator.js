@@ -668,7 +668,9 @@ toFixed(2))}
                         padding: "8px",
                         borderRadius: "5px",
                         width: "90%",
+                        
                       }}
+                      onKeyPress={handleKeyPress}
                       onChange={handleProductChange}
                       value={selectedProduct}
                     >

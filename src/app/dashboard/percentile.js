@@ -558,7 +558,7 @@ const Dashboard = () => {
                   <FormTag
                     color="green"
                     title="Portfolio Quantity"
-                    value={num.format(BO2.toFixed(2))}
+                    value={num.format(BO2.toFixed(2).toLocaleString())}
                   />
                 </div>
               </div>
@@ -903,7 +903,7 @@ const Dashboard = () => {
                     />
                   </div>
                   <div style={{ width: "100%", textAlign: "center" }}>
-                    <FormTag4 value={EO2 || 0} color="blue" title="Quantity" />
+                    <FormTag4 value={EO2.toLocaleString() || 0} color="blue" title="Quantity" />
                   </div>
                   <div
                     style={{
