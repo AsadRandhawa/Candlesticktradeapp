@@ -43,15 +43,15 @@ const Register = () => {
   const [messageApi, contextHolder] = message.useMessage();
   const [redirect, setRedirect] = useState(false);
   const [checked, setChecked] = useState(false);
-  const [fName, setFName] = useState("");
-  const [lName, setLName] = useState("");
-  const [eMail, setEmail] = useState("");
-  const [cOuntry, setCountry] = useState("");
-  const [pAss, setPass] = useState("");
+  const [firstName, setFName] = useState("");
+  const [lastName, setLName] = useState("");
+  const [email, setEmail] = useState("");
+  const [country, setCountry] = useState("");
+  const [password, setPass] = useState("");
   const [cPass, setCpass] = useState("");
   const [passwordShown, setPasswordShown] = useState(false);
   const [cPasswordShown, setCpasswordShown] = useState(false);
-  const [pHone, setPhone] = useState("");
+  const [phone, setPhone] = useState("");
   const [username, setUsername] = useState("");
   const changeHandler = value => {
     setValue(value);
@@ -83,22 +83,22 @@ const Register = () => {
   };
   const Register = () => {
 
-    if (!fName || fName === "" || fName === undefined)
+    if (!firstName || firstName === "" || firstName === undefined)
       messageApi.open({
         type: "warning",
         content: "Invaild First Name!",
       });
-    else if (!lName || lName === "" || lName === undefined)
+    else if (!lastName || lastName === "" || lastName === undefined)
       messageApi.open({
         type: "warning",
         content: "Invaild Last Name!",
       });
-    else if (!eMail || eMail === "" || eMail === undefined)
+    else if (!email || email === "" || email === undefined)
       messageApi.open({
         type: "warning",
         content: "Invaild Email!",
       });
-    else if (!cOuntry || cOuntry === "" || cOuntry === undefined)
+    else if (!country || country === "" || country === undefined)
       messageApi.open({
         type: "warning",
         content: "Invaild Country!",
@@ -108,7 +108,7 @@ const Register = () => {
         type: "warning",
         content: "Invaild Username!",
       });
-    else if (!pAss || pAss === "" || pAss === undefined)
+    else if (!password || password === "" || password === undefined)
       messageApi.open({
         type: "warning",
         content: "Invaild Password!",
@@ -118,20 +118,20 @@ const Register = () => {
         type: "warning",
         content: "Confirm Password!",
       });
-    else if (pAss !== cPass) {
+    else if (password !== cPass) {
       messageApi.open({
         type: "warning",
         content: "Passwords don't match!",
       });
-    } else if (!pHone || pHone === "" || pHone === undefined)
+    } else if (!phone || phone === "" || phone === undefined)
       messageApi.open({
         type: "warning",
         content: "Invaild PhoneNumber!",
       });
     else {
-      var arr = { fName, lName, eMail, cOuntry, username, pAss, cPass, pHone };
+      var arr = { firstName, lastName, email, country, username, password, phone };
       axios
-        .post("http://144.76.105.15:5001/api/users/register", arr)
+        .post("/api/users/register", arr)
         .then((res) => {
           if (res.data === "UserEmail already exists!" || res.data === "UserName already exists!")
             messageApi.open({
@@ -176,7 +176,7 @@ const Register = () => {
                   <div className="form-group col-6">
                     <input
                       type="text"
-                      value={fName}
+                      value={firstName}
                       style={{ color: "white" }}
                       className="form-control form-control-lg"
                       placeholder="First Name"
@@ -186,7 +186,7 @@ const Register = () => {
                   <div className="form-group col-6">
                     <input
                       type="text"
-                      value={lName}
+                      value={lastName}
                       style={{ color: "white" }}
                       className="form-control form-control-lg"
                       placeholder="Last Name"
@@ -198,7 +198,7 @@ const Register = () => {
                   <div className="form-group col-6">
                     <input
                       type="email"
-                      value={eMail}
+                      value={email}
                       style={{ color: "white" }}
                       className="form-control form-control-lg"
                       placeholder="Email"
@@ -222,7 +222,7 @@ const Register = () => {
                     <Select styles={darkTheme} options={options} value={value} onChange={changeHandler} />
                     {/* <input
                       type="text"
-                      value={cOuntry}
+                      value={country}
                       style={{ color: "white" }}
                       className="form-control form-control-lg"
                       onChange={(event) => HandleChange(7, event.target.value)}
@@ -245,7 +245,7 @@ const Register = () => {
                       {passwordShown ? (
                         <input
                           type="text"
-                          value={pAss}
+                          value={password}
                           style={{ color: "white" }}
                           className="form-control form-control-lg"
                           onChange={(event) =>
@@ -256,7 +256,7 @@ const Register = () => {
                       ) : (
                         <input
                           type="password"
-                          value={pAss}
+                          value={password}
                           style={{ color: "white" }}
                           className="form-control form-control-lg"
                           onChange={(event) =>
