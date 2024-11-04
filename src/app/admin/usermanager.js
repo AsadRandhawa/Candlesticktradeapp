@@ -44,18 +44,25 @@ const UserManager = () => {
   }, []);
 
   const GetAllUsers = () => {
-    axios.post("/api/users/getallusers").then((res) => {
-      setTableData(res.data);
-      for (var i = 0; i < res.data.length; i++) {
-        if (res.data[i].request) {
-          NotificationManager.info(`User ${res.data[i].username} has requested to use it for ${res.data[i].request} days`, 'News');
+    axios.get("https://candle-backend-production.up.railway.app/api/users/getallusers")
+      .then((res) => {
+        setTableData(res.data);
+        console.log("response of all user", res.data);
+        for (let i = 0; i < res.data.length; i++) {
+          if (res.data[i].request) {
+            NotificationManager.info(`User ${res.data[i].username} has requested to use it for ${res.data[i].request} days`, 'News');
+          }
         }
-      }
-    });
+      })
+      .catch((error) => {
+        console.error("Error fetching users:", error);
+        NotificationManager.error('Failed to fetch users', 'Error');
+      });
   };
+  
 
   const handleCreateNewRow = (values) => {
-    axios.post("/api/users/AddUser", values).then((res) => {
+    axios.post("https://candle-backend-production.up.railway.app/api/users/AddUser", values).then((res) => {
       if (res.data === "User's email already exists!") {
         NotificationManager.warning(res.data, 'Failure');
       }
@@ -73,7 +80,7 @@ const UserManager = () => {
 
   const handleSaveRowEdits = async (data) => {
     // console.log(data);
-    axios.post("/api/users/updateuser", data).then((res) => {
+    axios.post("https://candle-backend-production.up.railway.app/api/users/updateuser", data).then((res) => {
       // console.log(res.data);
       setTableData(res.data);
     });
@@ -92,7 +99,7 @@ const UserManager = () => {
         )
       ) {
         // console.log(row.original);
-        axios.post("/api/users/deleteuser", row.original).then((res) => {
+        axios.post("https://candle-backend-production.up.railway.app/api/users/deleteuser", row.original).then((res) => {
           // console.log(res.data);
           setTableData(res.data);
         });
@@ -167,22 +174,22 @@ const UserManager = () => {
           ...getCommonEditTextFieldProps(cell),
         }),
       },
-      {
-        accessorKey: "firstName",
-        header: "First Name",
-        size: 140,
-        muiTableBodyCellEditTextFieldProps: ({ cell }) => ({
-          ...getCommonEditTextFieldProps(cell),
-        }),
-      },
-      {
-        accessorKey: "lastname",
-        header: "Last Name",
-        size: 140,
-        muiTableBodyCellEditTextFieldProps: ({ cell }) => ({
-          ...getCommonEditTextFieldProps(cell),
-        }),
-      },
+      // {
+      //   accessorKey: "firstName",
+      //   header: "First Name",
+      //   size: 140,
+      //   muiTableBodyCellEditTextFieldProps: ({ cell }) => ({
+      //     ...getCommonEditTextFieldProps(cell),
+      //   }),
+      // },
+      // {
+      //   accessorKey: "lastname",
+      //   header: "Last Name",
+      //   size: 140,
+      //   muiTableBodyCellEditTextFieldProps: ({ cell }) => ({
+      //     ...getCommonEditTextFieldProps(cell),
+      //   }),
+      // },
       {
         accessorKey: "password",
         header: "Password",
@@ -255,12 +262,14 @@ const UserManager = () => {
       };
       // console.log(searchword);
       if (searchword) {
-        axios.post("/api/users/searchuser", searchitem).then((res) => {
+        axios.post("https://candle-backend-production.up.railway.app/api/users/searchuser", searchitem).then((res) => {
           // console.log(res.data);
           setTableData(res.data);
         });
       } else {
-        axios.post("/api/users/getallusers").then((res) => {
+
+
+        axios.get("https://candle-backend-production.up.railway.app/api/users/getallusers").then((res) => {
           setTableData(res.data);
         });
       }
@@ -538,7 +547,7 @@ export const EditingModal = ({
               gap: "1.5rem",
             }}
           >
-            <TextField
+            {/* <TextField
               name="firstName"
               value={rowdata.firstName}
               placeholder="First Name"
@@ -547,8 +556,8 @@ export const EditingModal = ({
                 setRowdata({ ...rowdata, [e.target.name]: e.target.value })
               }
             // style={{ border: "1px #a5aac7 solid" }}
-            />
-            <TextField
+            /> */}
+            {/* <TextField
               name="lastname"
               value={rowdata.lastname}
               placeholder="Last Name"
@@ -557,7 +566,7 @@ export const EditingModal = ({
                 setRowdata({ ...rowdata, [e.target.name]: e.target.value })
               }
             // style={{ border: "1px #a5aac7 solid" }}
-            />
+            /> */}
             <TextField
               name="email"
               value={rowdata.email}
