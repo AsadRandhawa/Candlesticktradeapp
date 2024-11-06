@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import axios from "axios";
 import { MaterialReactTable } from "material-react-table";
-import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, IconButton, Stack, TextField, Tooltip, createTheme, ThemeProvider, useTheme, Input, } from "@mui/material";
+import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, IconButton, Stack, TextField, Tooltip, createTheme, ThemeProvider, useTheme, Input, Switch } from "@mui/material";
 import { Delete, Edit, Search } from "@mui/icons-material";
 import "./style.css";
 import { useSelector } from 'react-redux'
@@ -12,6 +12,7 @@ import "./phonestyle.css";
 import countryList from 'react-select-country-list'
 import Select from 'react-select'
 import { message } from "antd";
+
 
 
 
@@ -53,6 +54,17 @@ const UserManager = () => {
             NotificationManager.info(`User ${res.data[i].username} has requested to use it for ${res.data[i].request} days`, 'News');
           }
         }
+      })
+      .catch((error) => {
+        console.error("Error fetching users:", error);
+        NotificationManager.error('Failed to fetch users', 'Error');
+      });
+
+      axios.get("https://candle-backend-production.up.railway.app/api/users/getallusers")
+      .then((res) => {
+        setTableData(res.data);
+        console.log("response of all user", res.data);
+        // If needed, map notification logic here
       })
       .catch((error) => {
         console.error("Error fetching users:", error);
@@ -158,14 +170,14 @@ const UserManager = () => {
 
   const columns = useMemo(
     () => [
-      {
-        accessorKey: "_id",
-        header: "ID",
-        enableColumnOrdering: false,
-        enableEditing: false, //disable editing on this column
-        enableSorting: false,
-        size: 80,
-      },
+      // {
+      //   accessorKey: "_id",
+      //   header: "ID",
+      //   enableColumnOrdering: false,
+      //   enableEditing: false, //disable editing on this column
+      //   enableSorting: false,
+      //   size: 80,
+      // },
       {
         accessorKey: "username",
         header: "UserName",
@@ -190,14 +202,14 @@ const UserManager = () => {
       //     ...getCommonEditTextFieldProps(cell),
       //   }),
       // },
-      {
-        accessorKey: "password",
-        header: "Password",
-        size: 140,
-        muiTableBodyCellEditTextFieldProps: ({ cell }) => ({
-          ...getCommonEditTextFieldProps(cell),
-        }),
-      },
+      // {
+      //   accessorKey: "password",
+      //   header: "Password",
+      //   size: 140,
+      //   muiTableBodyCellEditTextFieldProps: ({ cell }) => ({
+      //     ...getCommonEditTextFieldProps(cell),
+      //   }),
+      // },
       {
         accessorKey: "email",
         header: "Email",
@@ -232,24 +244,62 @@ const UserManager = () => {
           type: "number",
         }),
       },
+
+      // {
+      //   accessorKey: "registerTime",
+      //   header: "Register_Time",
+      //   size: 80,
+      //   muiTableBodyCellEditTextFieldProps: ({ cell }) => ({
+      //     ...getCommonEditTextFieldProps(cell),
+      //     type: "number",
+      //   }),
+      // },
+      // {
+      //   accessorKey: "request",
+      //   header: "Request",
+      //   size: 80,
+      //   muiTableBodyCellEditTextFieldProps: ({ cell }) => ({
+      //     ...getCommonEditTextFieldProps(cell),
+      //     type: "number",
+      //   }),
+      // },
+
       {
-        accessorKey: "registerTime",
-        header: "Register_Time",
+        accessorKey: "status",
+        header: "Status",
+        Cell: ({ row }) => {
+          const user = row.original;
+          const [status, setStatus] = useState(user.status === "approved");
+      
+          const handleStatusChange = () => {
+            const newStatus = status ? 0 : 1;
+            console.log("Updating status for user:", user.userId, "to:", newStatus);
+          
+            axios.post("https://candle-backend-production.up.railway.app/api/users/approveOrReject", {
+              userId: user.userId,
+              action: newStatus
+            })
+            .then((res) => {
+              NotificationManager.success(`User ${user.firstName} ${status ? "rejected" : "approved"}`, 'Success');
+              setStatus(!status); // Update the local state to reflect the change
+            })
+            .catch((error) => {
+              console.error("Error updating status:", error.response ? error.response.data : error);
+              NotificationManager.error('Failed to update user status', 'Error');
+            });
+          };
+      
+          return (
+            <Switch
+              checked={status}
+              onChange={handleStatusChange}
+              color="#2196f3"
+              inputProps={{ 'aria-label': 'Status toggle' }}
+            />
+          );
+        },
         size: 80,
-        muiTableBodyCellEditTextFieldProps: ({ cell }) => ({
-          ...getCommonEditTextFieldProps(cell),
-          type: "number",
-        }),
-      },
-      {
-        accessorKey: "request",
-        header: "Request",
-        size: 80,
-        muiTableBodyCellEditTextFieldProps: ({ cell }) => ({
-          ...getCommonEditTextFieldProps(cell),
-          type: "number",
-        }),
-      },
+        },
     ],
     [getCommonEditTextFieldProps]
   );
@@ -330,13 +380,13 @@ const UserManager = () => {
           )}
           renderTopToolbarCustomActions={() => (
             <div style={{ display: "flex" }}>
-              <Button
+              {/* <Button
                 style={{ backgroundColor: "#8b8fa3", marginRight: "65px" }}
                 onClick={() => setCreateModalOpen(true)}
                 variant="contained"
               >
                 Create
-              </Button>
+              </Button> */}
               <Input
                 // style={{ backgroundColor: "#8b8fa3", float: "right" }}
                 value={searchword}
@@ -597,7 +647,7 @@ export const EditingModal = ({
               }
             // style={{ border: "1px #a5aac7 solid" }}
             />
-            <TextField
+            {/* <TextField
               name="period"
               value={rowdata.period}
               placeholder="Period"
@@ -607,7 +657,7 @@ export const EditingModal = ({
                 setRowdata({ ...rowdata, [e.target.name]: e.target.value })
               }
             // style={{ border: "1px #a5aac7 solid" }}
-            />
+            /> */}
 
             <TextField
               name="request"
