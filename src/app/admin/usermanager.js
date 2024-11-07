@@ -272,22 +272,37 @@ const UserManager = () => {
           const [status, setStatus] = useState(user.status === "approved");
       
           const handleStatusChange = () => {
-            const newStatus = status ? 0 : 1;
-            console.log("Updating status for user:", user.userId, "to:", newStatus);
+          //   const newStatus = status ? 0 : 1;
+          //   console.log("Updating status for user:", user.userId, "to:", newStatus);
           
-            axios.post("https://candle-backend-production.up.railway.app/api/users/approveOrReject", {
-              userId: user.userId,
-              action: newStatus
-            })
-            .then((res) => {
-              NotificationManager.success(`User ${user.firstName} ${status ? "rejected" : "approved"}`, 'Success');
-              setStatus(!status); // Update the local state to reflect the change
-            })
-            .catch((error) => {
-              console.error("Error updating status:", error.response ? error.response.data : error);
-              NotificationManager.error('Failed to update user status', 'Error');
-            });
-          };
+          //   axios.post("https://candle-backend-production.up.railway.app/api/users/approveOrReject", {
+          //     userId: user.userId,
+          //     action: newStatus
+          //   })
+          //   .then((res) => {
+          //     NotificationManager.success(`User ${user.firstName} ${status ? "rejected" : "approved"}`, 'Success');
+          //     setStatus(!status); // Update the local state to reflect the change
+          //   })
+          //   .catch((error) => {
+          //     console.error("Error updating status:", error.response ? error.response.data : error);
+          //     NotificationManager.error('Failed to update user status', 'Error');
+          //   });
+          const newStatus = status ? 0 : 1;
+          console.log("Updating status for user:", user, "to:", newStatus);
+        
+          axios.post("https://candle-backend-production.up.railway.app/api/users/approveOrReject", {
+            userId: user?._id,
+            action: newStatus
+          })
+          .then((res) => {
+            NotificationManager.success(`User ${user.firstName} ${status ? "rejected" : "approved"}`, 'Success');
+            setStatus(!status); // Update the local state to reflect the change
+          })
+          .catch((error) => {
+            console.error("Error updating status:", error.response ? error.response.data : error);
+            NotificationManager.error('Failed to update user status', 'Error');
+          });  
+        };
       
           return (
             <Switch
